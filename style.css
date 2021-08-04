@@ -76,3 +76,64 @@ aside {
 .snake { background-color: var(--col-snake); }
 .snake-head { background-color: var(--col-snake-head); }
 .food { background-color: var(--col-food); }
+
+/* Start menu for the game */
+.start-panel-wrapper {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+
+    display: grid;
+    place-items: center;
+}
+
+.start-panel-wrapper.hidden {
+    display: none;
+}
+
+.start-panel {
+    width: 80vw;
+    height: 80vh;
+    background-color: #fff;
+
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Georama', sans-serif;
+    font-size: 20px;
+}
+
+/* Designing form */
+.form {
+    display: grid;
+    width: 80%;
+    justify-content: stretch;
+    gap: 10px;
+    margin: 20px;
+}
+
+.form h4 {
+    margin-top: 50px;
+}
+
+.btn-start {
+    all: unset;
+    margin-top: 60px;
+    padding: 10px 20px;
+    text-align: center;
+
+    
+    background-color: #feffe2;
+    border: 3px solid purple;
+    color: blue;
+}
+
+.btn-start:hover {
+    cursor: pointer;
+    background-color: purple;
+    border: 3px solid purple;
+    color: #feffe2;
+}

@@ -2,11 +2,11 @@ export default(function(){
     const board = document.querySelector('#board');
     const r = document.querySelector(':root');
     const score = document.querySelector('#score span')
-    const boardSquareSize = 20;
+    const boardSquareSizeLimit = 40;
 
     // x -> columns, y -> rows
-    function generateBoard(x = boardSquareSize, y = boardSquareSize) {
-        if(x > boardSquareSize || y > boardSquareSize) return alert('Board size limit exceeded');
+    function generateBoard(x , y) {
+        if(x > boardSquareSizeLimit || y > boardSquareSizeLimit) return alert('Board size limit exceeded');
         const grid = document.createElement('div');
         grid.classList.add('board-grid');
         r.style.setProperty('--columns', y);
@@ -18,6 +18,13 @@ export default(function(){
         }
 
         board.appendChild(grid);
+    }
+
+    function destroyBoard() {
+        const grid = document.querySelector('.board-grid');
+        grid.childNodes.forEach(childNode => {
+            grid.remove(childNode);
+        })
     }
 
     function genSnakeHead([x,y]) {
@@ -67,6 +74,7 @@ export default(function(){
 
     return {
         generateBoard,
+        destroyBoard,
         genSnakeHead,
         genFoodItem,
         moveSnake,

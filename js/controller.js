@@ -3,22 +3,24 @@ import LogicCtrl from './gamedata.js';
 
 const initSnakeHead = [0,0];
 const initFoodPos = [2,0];
-let head = initSnakeHead;
+
 let snakeInterval;
-const timeInterval = 300;
+let head;
+let gameEndFn;
 
-// status => 0 (game over), 1 (food ingested), 2 (normal case)
-
-/* MAIN LOGIC HERE */
-(function() {
-
+/* GAME CONTROLLER HERE */
+export const gameCtrl = (function() {
+    
     function moveSnakeEvent() {
         const res = LogicCtrl.moveSnake()
         head = res.head
-    
+        
+        // res.status => 0 (game over), 1 (food ingested), 2 (normal case)
         if(!res.status) {
             clearInterval(snakeInterval);
-            return alert('Game over!');
+            alert('Game over!')
+            destroy();
+            return;
         }
     
         if(res.status == 2) {
@@ -33,12 +35,14 @@ const timeInterval = 300;
         }
     }
 
-    function init() {
+    function init(timeInterval, boardSize, fn) {
         // create a board on the screen
-        UIctrl.generateBoard();
+        UIctrl.generateBoard(boardSize, boardSize);
+        head = initSnakeHead;
+        gameEndFn = fn;
 
         // set initial data for the board
-        LogicCtrl.initData(initSnakeHead, initFoodPos, [20,20]);
+        LogicCtrl.initData(initSnakeHead, initFoodPos, [boardSize,boardSize]);
         UIctrl.genSnakeHead(initSnakeHead);
         UIctrl.genFoodItem(initFoodPos);
 
@@ -49,15 +53,28 @@ const timeInterval = 300;
         snakeInterval = setInterval(moveSnakeEvent, timeInterval);
     }
 
-    function setEventListeners() {
-        document.addEventListener('keydown', function(e) {
-            if(e.key === 'ArrowUp') return LogicCtrl.changeDirection(0);
-            if(e.key === 'ArrowRight') return LogicCtrl.changeDirection(2);
-            if(e.key === 'ArrowLeft') return LogicCtrl.changeDirection(3);
-            if(e.key === 'ArrowDown') return LogicCtrl.changeDirection(1);
-        })
+    const changeDirection = function(e) {
+        if(e.key === 'ArrowUp') return LogicCtrl.changeDirection(0);
+        if(e.key === 'ArrowRight') return LogicCtrl.changeDirection(2);
+        if(e.key === 'ArrowLeft') return LogicCtrl.changeDirection(3);
+        if(e.key === 'ArrowDown') return LogicCtrl.changeDirection(1);
     }
 
-    init();
+    function setEventListeners() {
+        document.addEventListener('keydown', changeDirection)
+    }
+
+    function destroyEventListeners() {
+        document.removeEventListener('keydown', changeDirection);
+    }
+
+    function destroy() {
+        UIctrl.destroyBoard();
+        LogicCtrl.resetData();
+        destroyEventListeners();
+        gameEndFn();
+    }
+
+    return { init };
 
 })()

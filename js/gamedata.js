@@ -17,7 +17,7 @@ const data = (function() {
 
     // define game data
     let snakeHead; // the current head of the snake
-    const snake = new Queue(); // snake is a queue
+    let snake = new Queue(); // snake is a queue
     let dir = 1;
     let score = 0;
     let food; // the current food square
@@ -134,8 +134,16 @@ const data = (function() {
         dir = newDir;
     }
 
+    function resetData() {
+        snake = new Queue();
+        dir = 1;
+        score = 0;
+        allCells = [];
+    }
+
     return {
         initData,
+        resetData,
         moveSnake,
         getGameDetails,
         eatFood,

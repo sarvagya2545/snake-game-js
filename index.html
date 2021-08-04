@@ -5,8 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- STYLE SHEET -->
     <link rel="stylesheet" href="style.css">
-    <script src="./js/controller.js" type="module" defer></script>
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Georama:wght@400;700&display=swap" rel="stylesheet">
+    <!-- SCRIPT -->
+    <script src="./js/index.js" type="module" defer></script>
 </head>
 <body>
     <header>
@@ -17,9 +23,36 @@
         <!-- Generate divs with javascript here -->
         <div id="board">
         </div>
-        <!-- Appears at the start and the end of the game -->
-        <div class="start-panel">
+        <!-- Appears at the start of the game -->
+        <div class="start-panel-wrapper">
+            <div class="start-panel">
+                <h1>Welcome to Snake Game!!!!</h1>
+                <p>Change settings to continue</p>
 
+                <form class="form" data-game-config>
+                    <h4>Difficulty Level:</h4>
+                    <div class="form-input">
+                        <input type="radio" name="difficulty" value="Easy" checked>
+                        <label for="difficulty">Easy (Lite maxxx)</label>
+                        <!-- 300ms timeout -->
+                    </div>
+                    <div class="form-input">
+                        <input type="radio" name="difficulty" value="Medium">
+                        <label for="difficulty">Medium (Hmmmm)</label>
+                        <!-- 200ms timeout -->
+                    </div>
+                    <div class="form-input">
+                        <input type="radio" name="difficulty" value="Hard">
+                        <label for="difficulty">Hard (Hmmmmmmmmmmmmmmmmmmmmm)</label>
+                        <!-- 100ms timeout -->
+                    </div>
+
+                    <h4>Board Size: <span id="boardSizeOutput">20</span></h4>
+                    <input type="range" name="size" value="20" min="15" max="24" step="1" data-board-size>
+
+                    <button class="btn-start" type="submit">Start game</button>
+                </form>
+            </div>
         </div>
     </main>
     <!-- Sidebar for controls -->
